@@ -1,0 +1,5 @@
+#fb-root
+
+// https://gist.github.com/6temes/52648dc6b3adbbf05da3942794b97a00
+javascript:
+  !function(e,t,n){var o,r=e.getElementsByTagName(t)[0];e.getElementById(n)||(o=e.createElement(t),o.id=n,o.async=true,o.src="//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8",r.parentNode.insertBefore(o,r))}(document,"script","facebook-jssdk"),function(e){function t(){e("#fb-root").length&&(o=e("#fb-root").detach())}function n(){null!=o&&(e("#fb-root").length?e("#fb-root").replaceWith(o):e("body").append(o)),"undefined"!=typeof FB&&null!==FB&&FB.XFBML.parse()}var o;document.addEventListener("turbolinks:request-start",t),document.addEventListener("turbolinks:load",n)}(jQuery);

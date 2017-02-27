@@ -1,0 +1,67 @@
+#catch
+  .inner.row
+    ul.col.push-middle#catch-container
+      - @headlines_list.each do |h|
+        a href=abs_url("/article/#{h.article.hash_code}")
+          li.col.catch-1.row style='background-image:url(#{h.page_thumbnail.url})'
+            .info.col.push-bottom.row
+              .info_wrap.push-bottom.push-bottom
+                h3 = h.title
+                  span.news_meta
+                  span class='post-date' = format_unixtime(h.published_at, true)
+                  span class='post-comments' = h.feed.site.name
+
+#contents
+  .inner
+    section
+      h3.section_title Latest
+      ul
+        -@latests_list.each do |l|
+          li class='news_container'
+            .thumb_wrap
+              a href=abs_url("/article/#{l.article.hash_code}")
+                .thumbnail style='background-image: url(#{l.has_thumbnail && l.page_thumbnail.present? ? l.page_thumbnail.url : ''})'
+            .news_info
+              h5.news_title
+                a href=abs_url("/article/#{l.article.hash_code}")
+                  = l.title.truncate(Settings.site_layout.mb_title_lim)
+              div.news_summary
+                a href=abs_url("/article/#{l.article.hash_code}")
+                  = l.description.truncate(Settings.site_layout.mb_summary_lim)
+              span.news_meta
+                span class='post-date' = format_unixtime(l.published_at, true)
+                span class='post-comments' = l.feed.site.name
+    /section
+      h3.section_title Category1
+      ul
+        li class='news_container'
+          .thumb_wrap
+            a href='#'
+              .thumbnail style='background-image: url(https://cdn.pixabay.com/photo/2017/02/22/17/02/beach-2089936__340.jpg)'
+          .news_info
+            h5.news_title
+              a href='#' Facebook in talks to live stream one MLB game per week
+            div.news_summary
+              a href='#'	The Japanese government needs to do more to protect the…
+            span.news_meta
+              span class='post-date' 12, Jun, 2016
+              span class='post-comments' 2 Comments
+      .headline_wrap
+        h3.category-title
+          | More in Category
+        ol.headlines
+          -(1..4).each do
+            li = link_to "Apple 'spaceship' headquarters readies for boarding"
+    /section
+      ul
+        li
+          .container_large_photo
+            .large-thumbnail
+              a href='#'
+                span Animal
+                img src='https://cdn.pixabay.com/photo/2017/02/22/17/02/beach-2089936__340.jpg'
+            .info
+              h5.news_title Facebook in talks to live stream one MLB game per week
+              span.news_meta
+                span class='post-date' 13, Jun, 2015
+                span class='post-comments' 3 Comments

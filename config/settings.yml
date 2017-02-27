@@ -1,0 +1,16 @@
+site_info:
+  site_title: 'wasabi now'
+  url_site: 'http://wasabi-now.com'
+  url_twitter: 'http://wasabi-now.com'
+  url_facebook: 'https://www.facebook.com/wasabinow'
+  url_instagram: ''
+  #url_rss: 'http://wasabi-now.com'
+
+site_layout:
+  mb_title_lim: 50
+  mb_summary_lim: 100
+  mb_cap_lim: 200
+
+  pc_title_lim: 50
+  pc_summary_lim: 100
+  pc_box_title_lim: 90

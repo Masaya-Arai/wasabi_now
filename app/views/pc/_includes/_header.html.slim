@@ -1,0 +1,33 @@
+/// lawer > header
+header
+  .upper
+    .inner.cf
+      .links
+        / 流し先が決まり次第埋め込み
+        a href='https://gaikokujin.poole-job.jp/ja'
+          | JOBS
+      .sns
+        - social = { \
+          'facebook' => Settings.site_info.url_facebook, \
+          #'twitter' => Settings.site_info.url_twitter, \
+          #'instagram' => Settings.site_info.url_instagram, \
+          #'rss' => Settings.site_info['url_rss'] \
+        }
+        - social.keys.each do |key|
+          = link_to social[key], target: '_blank'
+            i class='fa fa-#{key}' aria-hidden='true'
+
+  nav
+    .inner.cf.align-middle.row
+      .logo
+        a href=abs_url('/')
+          img src=abs_url('/assets/logo.svg')
+          /p = Settings.site_info.site_title
+      ul.row.col.push-right
+        - cat_list.each_pair do |key, cat|
+          li.col
+            - if key == params[:category_id].to_i
+              span.selected
+                = cat.name.upcase
+            - else
+              = link_to cat.name.upcase, abs_url("/category/#{cat.id}")

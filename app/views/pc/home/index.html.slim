@@ -1,0 +1,74 @@
+#main.col
+  section.catch
+    .catch-container.cf
+      a href=article_url(hash_code: @headlines_list[0].article.hash_code)
+        li.catch-large style='background-image:url(#{@headlines_list[0].page_thumbnail.url})'
+          .info.row
+            .info_wrap.col.push-bottom
+              h3 #{@headlines_list[0].title}
+              span.news_meta
+                span class='post-date'
+                  = format_unixtime(@headlines_list[0].published_at)
+                span class='post-comments'
+                  = @headlines_list[0].feed.site.name
+      - @headlines_list[1..5].each do |h|
+        a href=abs_url("/article/#{h.article.hash_code}")
+          li.catch-1 style='background-image:url(#{h.page_thumbnail.url})'
+            .info.row
+              .info_wrap.col.push-bottom
+                h3 #{h.title}
+                span.news_meta
+                  span class='post-date' #{format_unixtime(h.published_at)}
+                  span class='post-comments' = h.feed.site.name
+  section.list.row
+    .news_line_large.col
+      = render partial: '_includes/section_title', locals: {title: 'Latest'}
+      / Latest News
+      .list_items_wrap
+        ul.news_list
+          - news_template = '_includes/news_container_list'
+          - @latests_list[0..2].each do |l|
+            = render partial: news_template, locals: {\
+              link: abs_url("/article/#{l.article.hash_code}"), \
+              imgUrl: l.page_thumbnail.url, \
+              title: l.title, \
+              summary: l.description, \
+              date: format_unixtime(l.published_at), \
+              comments: l.feed.site.name, \
+            }
+
+      / Each Category
+      - cat_list.each_pair do |k, c|
+        .list_items_wrap
+          = render partial: '_includes/section_title', locals: {title: c.name}
+          ul.news_list
+            - list = @category_headlines_list[c.id-1]
+            = render partial: news_template, locals: {\
+              link: abs_url("/article/#{list.article.hash_code}"), \
+              imgUrl: list.has_thumbnail && list.page_thumbnail.present? ? list.page_thumbnail.url : '', \
+              title: list.title, \
+              summary: list.description, \
+              date: format_unixtime(list.published_at), \
+              comments: list.feed.site.name, \
+            }
+          h3.category-title
+            | More in Category
+          ol.headlines
+            - @category_highlights_list[c.id-1].each do |ch|
+              li = link_to ch.title, abs_url("/article/#{ch.article.hash_code}")
+
+    .news_line_small.col.push-right
+      - @latests_list[3..8].each do |b|
+        = render partial: '_includes/news_container_large_photo', locals: {\
+          imgUrl: b.page_thumbnail.url, \
+          tag: cat_list[b.feed.category_id-1].name, \
+          link: abs_url("/article/#{b.article.hash_code}"), \
+          title: b.title, \
+          date: format_unixtime(b.published_at), \
+          comments: b.feed.site.name \
+        }
+
+aside.col.push-right
+  = render partial: '_includes/aside',
+          locals: {art_list: @latests_list[9..12],
+                  box_list: @latests_list[13..14]}

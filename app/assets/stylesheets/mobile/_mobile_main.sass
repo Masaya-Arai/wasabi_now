@@ -1,0 +1,504 @@
+@import '../common/_kube'
+@import '../common/mixin'
+@import '../common/reset'
+@import '../common/_colors'
+@import 'font-awesome'
+
+
+
+/* FONT WEIGHT */
+$bold: 700
+$medium: 500
+$regular: 400
+
+html, body
+  min-height: 400px
+body
+  background-color: #5C5C5C
+  margin: 0
+  #page_wrap
+    position: absolute
+    background-color: white
+    z-index: 20
+    width: 100%
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+
+.inner
+  padding: 0 4.2%
+
+.vertical-middle
+  display: table-cell
+  vertical-align: middle
+
+//menu
+#menu
+  color: white
+  position: absolute
+  right: 0
+  top: 0
+  width: 260px
+  z-index: 10
+  div
+    h5
+      font-weight: 400
+      font-size: 1.6rem
+      line-height: 5.4rem
+      padding-left: 20px
+      text-transform: uppercase
+      letter-spacing: 1.2px
+
+    ul
+      padding-left: 20px
+      li
+        border-top: solid 1px rgba(0,0,0,0.12)
+        font-size: 1.4rem
+        line-height: 4.4rem
+        display: block
+        &:nth-child(1)
+          border-top: none
+
+        a
+          color: white
+
+
+
+.row
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+#contents
+  margin-top: 1.6rem
+section
+  padding-bottom: 2rem
+/* TITLES */
+.section_title
+  color: $text_navy
+  font-weight: $bold
+  font-size: 1.9rem
+  padding-bottom: 1rem
+  border-bottom: 4px solid $yellow_primary
+.category-title
+  font-size: 1.4rem
+  font-weight: $bold
+  padding: 6px 8px
+  background-color: $yellow_weak
+
+header
+  position: relative
+  overflow: hidden
+  background-color: $yellow_primary
+  z-index: 99
+  .inner
+    height: 4.5rem
+    margin: 0 auto
+    .logo
+      padding: 0
+      height: 4.5rem
+      font-size: 2rem
+      display: table
+      margin-top: auto
+      margin-left: 0
+      margin-right: auto
+      margin-bottom: auto
+      a
+        @extend .vertical-middle
+        img
+          position: absolute
+          top: 0
+          bottom: 0
+          left: -10px
+          margin: auto
+          width: 50%
+    ol
+      margin-top: auto
+      margin-left: auto
+      margin-right: 0
+      margin-bottom: auto
+      -webkit-tap-highlight-color: rgba(0,0,0,0)
+      tap-highlight-color: rgba(0,0,0,0)
+      height: 1.5rem
+      position: relative
+      width: 24px
+      cursor: pointer
+      li
+        -webkit-tap-highlight-color: rgba(0,0,0,0)
+        tap-highlight-color: rgba(0,0,0,0)
+        background-color: $navy_primary
+        height: 0.15rem
+        width: 24px
+        position: absolute
+        left: 0
+        right: 0
+        &:nth-child(1)
+          top: 0
+        &:nth-child(2)
+          top: 0.6rem
+        &:nth-child(3)
+          top: 1.2rem
+
+.categories
+  width: 100%
+  background-color: $navy_primary
+  .inner
+    padding: 0
+    height: 4rem
+    overflow: hidden
+    ul
+      li
+        width: auto
+        padding-left: 20px
+        color: $yellow_primary
+        font-weight: bold
+        a
+          text-transform: uppercase
+          font-size: 1.3rem
+          color: $w-100
+          font-weight: $medium
+          letter-spacing: 0.4px
+
+
+/* CATCH NEWS */
+$catch_h: 21.8rem
+#catch
+  margin-bottom: 2.4rem
+  width: 100%
+  .inner
+    overflow: hidden
+    padding: 0
+    #catch-container
+      .catch-1
+        display: flex (!important)
+        height: $catch_h
+        float: left
+        background: #454648
+        position: relative
+        @include bg-img
+        background-image:  url(https://cdn.pixabay.com/photo/2017/02/07/16/47/kingfisher-2046453__340.jpg)
+        .info
+          width: 100%
+          height: 50%
+          @include gradation(0, 0.5)
+          .info_wrap
+            padding: 10px 10px 16px
+            h3
+              margin-bottom: 6px
+              font-size: 1.5rem
+              line-height: 1.2
+              color: white
+            .news_meta
+              span
+                font-size: 1.2rem
+                color: $w-70
+
+
+
+
+
+/*** SLICK DOTS ***/
+.slick-dots
+  background-color: #EFEFEF
+  display: flex
+  justify-content: center
+  flex-direction: row
+  li
+    padding: 12px 5px
+    button
+      text-indent: 9999%
+      width: 8px
+      height: 0.8rem
+      white-space: nowrap
+      overflow: hidden
+      display: block
+      padding: 0
+      min-height: 0
+      @include radius()
+      background-color: $navy_primary
+      opacity: 0.6
+    &.slick-active
+      button
+        opacity: 1
+
+/*** NEWS CONTAINER ***/
+.news_container
+  padding: 1.1rem 0
+  border-bottom: 1px solid $b-12
+  display: table
+  table-layout: fixed
+  &:last-child
+    border-bottom: none
+  .thumb_wrap
+    display: table-cell
+    vertical-align: top
+    padding-right: 8px
+    a
+      .thumbnail
+        width: 120px
+        height: 10rem
+        @include bg-img
+  .news_info
+    display: table-cell
+    vertical-align: middle
+.news_title
+  font-weight: $bold
+  font-size: 1.5rem
+  line-height: 1.8rem
+  margin-bottom: 3px
+  a
+    color: $text_navy
+.news_summary
+  font-size: 1.3rem
+  line-height: 1.5rem
+  font-weight: $regular
+  margin-bottom: 1px
+  a
+    color: $text_navy
+.news_meta
+  span
+    font-size: 1.1rem
+    font-weight: $medium
+    margin-right: 9px
+    line-height: 1.3rem
+    color: $b-54
+
+/* INDEX PAGE */
+.list
+  .news_line_large
+    width: 470px
+  .news_line_small
+    width: 270px
+.headline_wrap
+  margin-top: 1.2rem
+  .headlines
+    margin-top: 5px
+    li
+      padding: 4px 0
+      a
+        font-size: 1.5rem
+        color: $text_navy
+        font-weight: $bold
+/* LARGE PHOTO CONTAINER */
+.container_large_photo
+  background-color: $navy_primary
+  margin-top: 1.1rem
+  .large-thumbnail
+    a
+      display: block
+      position: relative
+      span
+        position: absolute
+        display: inline-block
+        background-color: $yellow_primary
+        color: $text_navy
+        font-size: 1.3rem
+        font-weight: $bold
+        top: 0
+        left: 0
+        padding: 8px 10px
+  .info
+    padding: 1.4rem 14px
+    text-align: left
+    font-size: 1.6rem
+    font-weight: $bold
+    color: white
+    .news_title
+      margin-bottom: 6px
+    .news_meta
+      span
+        font-weight: $regular
+        color: $w-70
+
+
+/* ARTICLE */
+// share
+.article_share
+  // background-color: #F8F9F9
+  // padding: 12px 10 0
+  // @include radius(2px)
+  // margin-bottom: 2.4rem
+  width: 100%
+  ul
+    width: 100%
+    margin: 0 -6px
+    li
+      float: left
+      padding: 0 6px
+      width: auto
+      height: 2.8rem
+      margin-bottom: 1.8rem
+      display: inline-block
+      width: auto
+
+
+article
+  margin: 1.6rem 0
+  line-height: 1.3
+  .img_wrap
+    float: left
+    margin: 0 18px 18px 0
+  .title
+    margin-bottom: 1.8rem
+  .news_meta
+    span
+      font-size: 1.2rem
+  .img_wrap
+    img
+      display: block
+    .caption
+      border-left: 1px solid $b-12
+      border-right: 1px solid $b-12
+      border-bottom: 1px solid $b-12
+      padding: 12px
+      display: block
+      span
+        display: block
+        font-size: 1.2rem
+        color: $b-54
+        font-weight: $regular
+  h1
+    font-size: 2.4rem
+    line-height: 1.166
+    margin-bottom: 9px
+  h2, h3, h4, h5, h6
+    margin-bottom: 1.8rem
+  p
+    font-size: 1.5rem
+    line-height: 1.5
+    font-weight: $regular
+    margin-bottom: 1.8rem
+  blockquote
+    border-left: $yellow_primary 4px solid
+    padding-left: 18px
+    line-height: 1.5
+
+/* ARTICLE COMMENTS */
+.comment_section
+  margin: 2.4rem 0
+  // PAGINATION
+  .pagination
+    background-color: white
+    border-bottom: none
+    ul
+      li
+        ul
+          li
+            a
+              border-color: rgba(0, 0, 0, 0.1)
+            &.disabled
+              a
+                border-color: white
+                cursor: default
+              a:hover
+                color: $b-87
+
+li.comment
+  display: table
+  padding: 16px 0
+  border-bottom: dotted 1px $b-12
+  &:last-child
+    border-bottom: none
+  .thumb_wrap
+    @extend .vertical-middle
+    padding-right: 12px
+    .thumbnail
+      border: 1px solid $b-12
+      width: 56px
+      height: 5.6rem
+      @include bg-img
+
+  .comment_info
+    @extend .vertical-middle
+    .comment_upper
+      h5
+        font-size: 1.5rem
+        font-weight: $bold
+        margin-right: 5px
+      span
+        font-size: 1rem
+        font-weight: $medium
+        color: $b-54
+    .comment_content
+      margin-top: 3px
+      font-size: 1.4rem
+      line-height: 1.7rem
+
+// Facebook登録, コメント入力エリア
+.register_for_comment
+  margin-top: 1.6rem
+  padding: 2rem 16px 1.8rem
+  border: 3px solid $gray_primary
+  .push_register
+    text-align: center
+    h3
+      font-size: 1.8rem
+      margin-bottom: 12px
+    p
+      font-size: 1.3rem
+      color: $b-54
+      line-height: 1.3
+    .facebook_login
+      vertical-align: middle
+      background-color: $color_facebook
+      color: white
+      font-size: 1.3rem
+      padding: 12px
+      display: inline-block
+      margin: 14px auto 0
+      i
+        font-size: 1.6rem
+        padding-right: 10px
+.comment_input
+  margin-top: 1.6rem
+  border-bottom: 1px dotted $b-12
+  padding-bottom: 1.6rem
+  form
+    width: 100%
+    h3
+    .comment_area
+      width: 100%
+      margin: 1.6rem 0
+      textarea
+        width: 100%
+
+/*** FOOTER ***/
+footer
+  background-color: $navy_primary
+  margin-top: 4.8rem
+  .inner
+    ul
+      li
+        padding: 8px 0
+        color: $yellow_primary
+        a
+    > ul
+      padding: 48px 0 20px
+      li
+        a
+          color: white
+    > div
+      padding: 30px 0 30px
+      h3
+        color: $yellow_weak
+        font-size: 1.6rem
+        margin-bottom: 8px
+      ul
+        li
+          padding: 8px 0
+          a
+            font-size: 1.6rem
+            font-weight: $regular
+            color: $w-100
+            i
+              width: 22px
+  .rights_statement
+    // background-color: $navy_strong
+    border-bottom: 5px solid $yellow_primary
+    text-align: center
+    width: 100%
+    p
+      color: $w-70
+      opacity: 0.7
+      font-size: 1.2rem
+      padding: 8px 0

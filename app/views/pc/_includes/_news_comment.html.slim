@@ -1,0 +1,12 @@
+li class='comment'
+  - if imgUrl == ''
+    .thumb_wrap
+      .thumbnail style='background-image: url(http://www.hayy.net/Content/img/custom/default-avatar.png)'
+  - else
+    .thumb_wrap
+      .thumbnail style='background-image: url(#{imgUrl})'
+  .comment_info
+    .comment_upper.row
+      h5.user_name.col = userName
+      span.col.push-bottom = date
+    .comment_content = comment

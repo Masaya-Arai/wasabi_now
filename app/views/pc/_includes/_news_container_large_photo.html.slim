@@ -1,0 +1,10 @@
+.container_large_photo
+  a href=link
+    .large-thumbnail
+      span = tag
+      img src='#{imgUrl.html_safe}'
+    .info
+      h5.news_title = title.truncate(Settings.site_layout.pc_box_title_lim)
+      span.news_meta
+        span class='post-date' = date
+        span class='post-comments' = comments

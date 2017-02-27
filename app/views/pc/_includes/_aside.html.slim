@@ -1,0 +1,20 @@
+= render partial: '_includes/section_title', locals: {title: 'Featured'}
+ul.news_list
+  - (art_list || []).each do |art|
+    = render partial: '_includes/news_container_list', locals: { \
+      imgUrl: art.has_thumbnail? && art.page_thumbnail.present? ? art.page_thumbnail.url : '', \
+      link: abs_url("/article/#{art.article.hash_code}"), \
+      title: art.title, \
+      summary: art.description, \
+      date: format_unixtime(art.published_at), \
+      comments: art.feed.site.name \
+    }
+- (box_list || []).each do |box|
+  = render partial: '_includes/news_container_large_photo', locals: { \
+    imgUrl: box.has_thumbnail? && box.page_thumbnail.present? ? box.page_thumbnail.url : '', \
+    tag: cat_list[box.feed.category_id].name, \
+    link: abs_url("/article/#{box.article.hash_code}"), \
+    title: box.title, \
+    date: format_unixtime(box.published_at), \
+    comments: box.feed.site.name \
+  }

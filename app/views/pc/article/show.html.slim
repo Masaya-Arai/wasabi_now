@@ -1,0 +1,104 @@
+#main.col
+  section.article.row
+    .article_share.col
+      ul
+        == render '../views/_common/socialshare_pc'
+        / LINEはurlが決まってから設置してください
+        li.line-it-button data-lang='ja' data-type='share-e' data-url='https://test.test' style='display: none;'
+          script src='https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js' async='async' defer='defer'
+
+    .article_show.col
+      article
+        .title
+          h1 = @article.title
+          div.news_meta
+            span class='post-date' #{format_unixtime(@article.published_at)}
+            span class='post-comments' = @article.feed.site.name
+        - if @article.has_thumbnail && @article.page_thumbnail.present?
+          .img_wrap.w50
+            img src=@article.page_thumbnail.url
+            - if @article.page_thumbnail.copyright != '' || @article.page_thumbnail.caption != ''
+            span.caption
+              span = @article.page_thumbnail.copyright
+              span = @article.page_thumbnail.caption
+        = @article.page_content.content.html_safe
+
+      /.img_wrap.w100
+          img.w100 src='https://cdn.pixabay.com/photo/2017/02/09/15/10/sea-2052650__340.jpg'
+
+      /h2
+          -(1..30).each do
+            | This is head 2
+      /h3 This is head 3
+      /h4 This is head 4
+      /h5 This is head 5
+      /h6 This is head 5
+
+      /blockquote Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.
+
+      /.comment_section
+        = render partial: '_includes/section_title', locals: {title: '23 Comments'}
+
+        / ログインしていない場合: .register_for_commentを表示
+        / ログインしている場合　: .comment_inputを表示
+        .register_for_comment.row
+          .push_register.col.push-middle.push-center
+            h3 Login to leave a comment
+            p
+              | Use your Facebook account to login or register with JapanGo.
+              br
+              | We will never post anything without your permission.
+            a.facebook_login
+              i.fa.fa-facebook-official aria-hidden='true'
+              | Login with Facebook
+
+        .comment_input.row
+          form method='post' action='' class='form'
+            h3 Leave a Comment
+            .form-item.comment_area
+              textarea rows='6'
+
+            .form-item
+              button Comment
+
+        ul.comments_wrap
+        - comments_template = '_includes/news_comment'
+        -(1..10).each do
+          = render partial: comments_template, locals: {\
+            imgUrl: '',\
+            userName: 'Jason Born',\
+            comment: 'The Japanese government needs to do more to protect the rights of minorities, Amnesty International … ',\
+            date: '27 May 2014'\
+          }
+        nav.pagination.pager
+          ul
+            li.prev
+              a href='' Previous
+            li
+              ul
+                li.active
+                  a href='#' 1
+                -(2..5).each do |i|
+                  li
+                    a href='#' = i
+            li.next
+              a href='' Next
+
+      = render partial: '_includes/section_title', locals: {title: 'Latest'}
+      / Latest News
+      .list_items_wrap
+        ul.news_list
+          - @related_list[0..4].each do |r|
+            = render partial: '_includes/news_container_list', locals: { \
+              imgUrl: r.has_thumbnail && r.page_thumbnail.present? ? r.page_thumbnail.url : '', \
+              link: abs_url("/article/#{r.article.hash_code}"), \
+              title: r.title, \
+              summary: r.description, \
+              date: format_unixtime(r.published_at), \
+              comments: r.feed.site.name \
+            }
+
+aside.col.push-right
+  = render partial: '_includes/aside',
+          locals: {art_list: @related_list[5..8] || [],
+                  box_list: @related_list[9..10] || []}

@@ -1,0 +1,90 @@
+doctype 5
+html
+  head
+    = render "#{controller.controller_name}/meta_tags"
+    = display_meta_tags(default_meta_tags)
+
+    = stylesheet_link_tag 'mobile/application', media: 'all',
+            'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'mobile/application', 'data-turbolinks-track': 'reload'
+
+    = favicon_link_tag
+    = csrf_meta_tags
+
+  body
+    #page_wrap.snap-content
+      == render '_includes/header'
+
+      .categories
+        .inner.row
+          ul.row#my-slider.col.push-middle
+            - cat_list.each_pair do |key, cat|
+              li.col
+                - if cat.id == params[:category_id].to_i
+                  = cat.name
+                - else
+                  a href=category_url(id: cat.id)
+                    = cat.name
+
+      #main
+        == yield
+
+      footer
+        .inner.row
+          .col.col-6
+            h3 Navigation
+            ul#fMenu_category.row.col.col-12.auto.align-center
+              li.col
+                = link_to 'HOME', root_url
+              - cat_list.each_pair do |key, cat|
+                li.col
+                  - if cat.id == params[:category_id].to_i
+                    = cat.name.upcase
+                  - else
+                    = link_to cat.name.upcase, abs_url("/category/#{cat.id}")
+          .col.col-6#fMenu_social
+            h3 SNS
+            ul.row
+              ul.row
+                - social = { \
+                  'facebook' => Settings.site_info.url_facebook, \
+                  #'twitter' => Settings.site_info.url_twitter, \
+                  #'instagram' => Settings.site_info.url_instagram, \
+                  #'rss' => Settings.site_info.url_rss \
+                }
+                - social.keys.each do |key|
+                  li.col.col-4
+                    = link_to social[key], target: '_blank'
+                      i class='fa fa-#{key}'
+                      = key
+          .col.col-6#fMenu_menu
+            h3 Menu
+            ul.row
+              li.col.col-4
+                a class='' href=abs_url('/about')
+                  | About Us
+              li.col.col-4
+                a class='' href=abs_url('/terms')
+                  | Terms of Use
+              li.col.col-4
+                a class='' href=abs_url('/privacy')
+                  | Privacy Policy
+              li.col.col-4
+                a class='' href=abs_url('/moderation')
+                  | Moderation Policy
+          .col.col-6
+            == render '../views/_common/facebook_page'
+            == render '../views/_common/facebook_root'
+        .rights_statement
+          - require 'date'
+          - d = Date.today
+          p
+            | #{Settings.site_info.site_title}, #{d.year}, All Rights Reserved
+
+    #menu.snap-drawers
+      .snap-drawer.snap-drawer-right
+        h5 menu
+        ul
+          li
+            a href='https://gaikokujin.poole-job.jp/ja'
+              | JOBS

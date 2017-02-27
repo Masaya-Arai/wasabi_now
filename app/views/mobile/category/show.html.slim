@@ -1,0 +1,23 @@
+#contents
+  .inner
+    section
+      h3.section_title = cat_list[params[:id].to_i].name
+      ul
+        - @latests_list.each do |l|
+          li class='news_container'
+            .thumb_wrap
+              a href=abs_url("/article/#{l.article.hash_code}")
+                .thumbnail style='background-image: url(#{l.has_thumbnail && l.page_thumbnail.present? ? l.page_thumbnail.url : ''})'
+            .news_info
+              h5.news_title
+                a href=abs_url("/article/#{l.article.hash_code}")
+                  = l.title.truncate(Settings.site_layout.mb_title_lim)
+              div.news_summary
+                a href=abs_url("/article/#{l.article.hash_code}")
+                  = l.description.truncate(Settings.site_layout.mb_summary_lim)
+              span.news_meta
+                span class='post-date' = format_unixtime(l.published_at, true)
+                span class='post-comments' = l.feed.site.name
+
+    .comment_section style='width: 100%'
+      = paginate @latests_list, window: 1

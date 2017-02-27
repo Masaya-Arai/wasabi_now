@@ -1,0 +1,20 @@
+doctype 5
+html
+  head
+    = render "#{controller.controller_name}/meta_tags"
+    = display_meta_tags(default_meta_tags)
+    = stylesheet_link_tag 'pc/application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Roboto:400,500,700'
+    = javascript_include_tag 'pc/application', 'data-turbolinks-track': 'reload'
+    = favicon_link_tag
+    = csrf_meta_tags
+
+  body
+    == render '_includes/header'
+    #page
+      .inner.row
+        == yield
+    == render '_includes/footer'
+    == render '_common/facebook_root'
+
+    == render '_common/google_analytics'

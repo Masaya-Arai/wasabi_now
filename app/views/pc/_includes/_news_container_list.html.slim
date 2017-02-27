@@ -1,0 +1,13 @@
+li class='news_container'
+  a href=link
+    - unless imgUrl == ''
+      .thumb_wrap
+        .thumbnail style='#{"background-image: url(#{imgUrl})".html_safe}'
+    .news_info
+      h5.news_title
+        = title.truncate(Settings.site_layout.pc_title_lim)
+      div.news_summary
+        = summary.truncate(Settings.site_layout.pc_summary_lim)
+      span.news_meta
+        span class='post-date' = date
+        span class='post-comments' = comments

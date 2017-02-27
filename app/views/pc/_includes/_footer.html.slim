@@ -1,0 +1,48 @@
+footer
+  .inner.row
+    ul#fMenu_category.row.col.col-12.auto.align-center
+      li.col
+        = link_to 'HOME', abs_url('/')
+      - cat_list.each_pair do |key, cat|
+        li.col
+          - if cat.id == params[:category_id].to_i
+            span.selected
+              = cat.name.upcase
+          - else
+            = link_to cat.name.upcase, abs_url("/category/#{cat.id}")
+    .col.col-6#fMenu_menu
+      h3 SNS
+      ul.row
+        - social = { \
+          'facebook' => Settings.site_info.url_facebook, \
+          #'twitter' => Settings.site_info.url_twitter, \
+          #'instagram' => Settings.site_info.url_instagram, \
+          #'rss' => Settings.site_info['url_rss'] \
+        }
+        - social.keys.each do |key|
+          li.col.col-4
+            = link_to social[key], target: '_blank'
+              i class='fa fa-#{key}'
+              = key
+      h3 Menu
+      ul.row
+        li.col.col-4
+          a class='' href=abs_url('/about')
+            | About Us
+        li.col.col-4
+          a class='' href=abs_url('/terms')
+            | Terms of Use
+        li.col.col-4
+          a class='' href=abs_url('/privacy')
+            | Privacy Policy
+        li.col.col-4
+          a class='' href=abs_url('/moderation')
+            | Moderation Policy
+    .col.col-6#fMenu_social
+      == render '../views/_common/facebook_page'
+
+  .rights_statement
+    - require 'date'
+    - d = Date.today
+    p
+      | #{Settings.site_info.site_title}, #{d.year}, All Rights Reserved

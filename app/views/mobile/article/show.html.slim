@@ -1,0 +1,103 @@
+.article_show.col
+  article
+    .inner
+      .title
+        h1 = @article.title
+        div.news_meta
+          span class='post-date' = format_unixtime(@article.published_at)
+          span class='post-comments' = @article.feed.site.name
+      .article_share.col
+        ul.cf
+          == render '../views/_common/socialshare_mb'
+      .img_wrap.w50
+        - if @article.has_thumbnail && @article.page_thumbnail.present?
+          img src=@article.page_thumbnail.url
+          - if @article.page_thumbnail.caption != '' || @article.page_thumbnail.copyright != ''
+            span.caption
+              span = @article.page_thumbnail.copyright
+              span = @article.page_thumbnail.caption.truncate(Settings.site_layout.mb_cap_lim)
+      = @article.page_content.content.html_safe
+      .article_share.col
+        ul.cf
+          == render '../views/_common/socialshare_mb'
+      /.img_wrap.w100
+        img.w100 src='https://cdn.pixabay.com/photo/2017/02/09/15/10/sea-2052650__340.jpg'
+
+      /h2
+        -(1..30).each do
+          | This is head 2
+      /h3 This is head 3
+      /h4 This is head 4
+      /h5 This is head 5
+      /h6 This is head 5
+
+      /blockquote Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.
+
+      /.comment_section
+        h3.section_title Comment
+
+        / ログインしていない場合: .register_for_commentを表示
+        / ログインしている場合　: .comment_inputを表示
+        .register_for_comment.row
+          .push_register.col.push-middle.push-center
+            h3 Login to leave a comment
+            p
+              | Use your Facebook account to login or register with JapanGo.
+              br
+              | We will never post anything without your permission.
+            a.facebook_login
+              i.fa.fa-facebook-official aria-hidden='true'
+              | Login with Facebook
+
+        .comment_input.row
+          form method='post' action='' class='form'
+            h3 Leave a Comment
+            .form-item.comment_area
+              textarea rows='6'
+
+            .form-item
+              button Comment
+
+        ul.comments_wrap
+          li class='comment'
+            .thumb_wrap
+              .thumbnail style='background-image: url(http://www.hayy.net/Content/img/custom/default-avatar.png)'
+            .comment_info
+              .comment_upper.row
+                h5.user_name.col Jason Born
+                span.col.push-bottom 27 May 2014
+              .comment_content The Japanese government needs to do more to protect the rights of minorities, Amnesty International …
+        nav.pagination.pager
+          ul
+            li.prev
+              a href='' Previous
+            li
+              ul
+                li.active
+                  a href='#' 1
+                -(2..5).each do |i|
+                  li
+                    a href='#' = i
+            li.next
+              a href='' Next
+
+#contents
+  .inner
+    section
+      h3.section_title Related
+      ul
+        -@related_list[0..4].each do |l|
+          li class='news_container'
+            .thumb_wrap
+              a href=abs_url("/article/#{l.article.hash_code}")
+                .thumbnail style='background-image: url(#{l.has_thumbnail && l.page_thumbnail.present? ? l.page_thumbnail.url : ''})'
+            .news_info
+              h5.news_title
+                a href=abs_url("/article/#{l.article.hash_code}")
+                  = l.title.truncate(Settings.site_layout.mb_title_lim)
+              div.news_summary
+                a href=abs_url("/article/#{l.article.hash_code}")
+                  = l.description.truncate(Settings.site_layout.mb_summary_lim)
+              span.news_meta
+                span class='post-date' = format_unixtime(l.published_at, true)
+                span class='post-comments' = l.feed.site.name

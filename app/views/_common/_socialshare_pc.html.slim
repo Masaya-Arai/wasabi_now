@@ -1,0 +1,26 @@
+/ Twitter
+li
+  a.twitter-share-button href='https://twitter.com/share' data-size='large'
+    /| Tweet
+  javascript:
+    !function(t,e,r){var n,s=t.getElementsByTagName(e)[0],i=/^http:/.test(t.location)?'http':'https';t.getElementById(r)||(n=t.createElement(e),n.id=r,n.src=i+'://platform.twitter.com/widgets.js',s.parentNode.insertBefore(n,s))}(document,'script','twitter-wjs');
+
+/ Pocket
+li
+  a data-pocket-label='pocket' data-pocket-count='vertical' class='pocket-btn' data-lang='en'
+  javascript:
+    !function(t,e){if(!t.getElementById(e)){var n=t.createElement('script');n.id=e,n.src='https://widgets.getpocket.com/v1/j/btn.js?v=1';t.getElementById(e);t.body.appendChild(n)}}(document,'pocket-btn-js');
+
+/ Facebook
+li
+  div class='fb-like' data-href=abs_url(request.path) data-layout='box_count' data-action='like' data-size='small' data-show-faces='true' data-share='true'
+
+/ Hatena
+/li
+  a href='http://b.hatena.ne.jp/entry/' class='hatena-bookmark-button' data-hatena-bookmark-layout='vertical-normal' data-hatena-bookmark-lang='en' title='Add entry'
+  script type='text/javascript' src='https://b.st-hatena.com/js/bookmark_button.js' charset='utf-8' async='async'
+
+/ Feedly
+/li
+  a href='http://cloud.feedly.com/#subscription%2Ffeed%2Fhttp%3A%2F%2F#{Settings.site_info.url_site}'  target='blank'
+    img id='feedlyFollow' src='http://s3.feedly.com/img/follows/feedly-follow-rectangle-volume-medium_2x.png' alt='follow us in feedly' width='71' height='28'

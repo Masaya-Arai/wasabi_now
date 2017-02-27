@@ -1,0 +1,42 @@
+#main.col
+  section.list.row
+    / 左カラム
+    .news_line_large.col
+      = render partial: '_includes/section_title',
+              locals: {title: cat_list[params[:id].to_i].name}
+      .list_items_wrap
+        ul.news_list
+          - @latests_list[0..9].each do |l|
+            = render partial: '_includes/news_container_list', locals: {\
+              imgUrl: l.has_thumbnail && l.page_thumbnail.present? ? l.page_thumbnail.url : '', \
+              link: abs_url("/article/#{l.article.hash_code}"), \
+              title: l.title, \
+              summary: l.description, \
+              date: format_unixtime(l.published_at), \
+              comments: l.feed.site.name \
+            }
+
+    / 中央カラム
+    .news_line_small.col.push-right
+      .list_items_wrap
+        = render partial: '_includes/section_title',
+                locals: {title: "Popular in #{cat_list[params[:id].to_i].name} "}
+        - (@latests_list[10..13] || []).each do |l|
+          a href=abs_url("/article/#{l.article.hash_code}")
+            = render partial: '_includes/news_container_large_photo', locals: {\
+              imgUrl: l.has_thumbnail && l.page_thumbnail.present? ? l.page_thumbnail.url : '', \
+              tag: cat_list[params[:id].to_i].name, \
+              link: abs_url("/article/#{l.article.hash_code}"), \
+              title: l.title, \
+              date: format_unixtime(l.published_at), \
+              comments: l.feed.site.name \
+            }
+
+    .comment_section style='width: 100%'
+      = paginate @latests_list, window: 5
+
+/ 右カラム
+aside.col.push-right
+  = render partial: '_includes/aside',
+          locals: {art_list: @latests_list[14..17],
+                  box_list: @latests_list[18..19]}
